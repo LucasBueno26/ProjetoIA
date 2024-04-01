@@ -11,7 +11,7 @@ Maeus Inague Angelone Pereira RM: 85080<br>
 https://github.com/LucasBueno26/ProjetoIA	
 
 <b>Problema</b><br>
-Detecção de emoções de clientes/funcionários para estabelecimentos <br>
+Detecção de emoções de  para teste de usabilidade em novos produtos/neuromarketing <br>
   + Identificar emoções individuais e coletivas para parametros de negocios, relatorio de resultados e projeções de modelo	<br><br>
 <b>Rubricas</b><br>
 <b>1.</b> Reconhecimento do rosto e macro emoções (feliz, triste)<br>
