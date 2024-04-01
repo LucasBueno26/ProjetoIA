@@ -18,3 +18,5 @@ Identificação de emoção (feliz, triste, brava)
 
 <br>
 Rastreamento de um objeto (vigilância)
+
+Projeto para exemplo: https://github.com/deeplearningunb/emotion
