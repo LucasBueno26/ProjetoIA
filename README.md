@@ -14,8 +14,7 @@ https://github.com/LucasBueno26/ProjetoIA
 Detecção de emoções de clientes/funcionários para estabelecimentos <br>
   + Identificar emoções individuais e coletivas para parametros de negocios, relatorio de resultados e projeções de modelo	<br><br>
 <b>Rubricas</b><br>
-<b>1.</b> Reconhecimento do rosto e macro emoções (feliz, triste)
-	Identificar emoções individuais e coletivas para parametros de negocios, relatorio de resultados e projeções de modelo	<br>
+<b>1.</b> Reconhecimento do rosto e macro emoções (feliz, triste)<br>
 <b>2.</b> Reconhecimento de amplas emoções (bravo, medo, confuso)<br>
 <b>3.</b>  Pegar varias emoções simultâneas e retornar com um análise sobre elas<br>
 
