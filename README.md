@@ -16,7 +16,7 @@ Detecção de emoções de clientes/funcionários para estabelecimentos <br>
 <b>Rubricas</b><br>
 <b>1.</b> Reconhecimento do rosto e macro emoções (feliz, triste)<br>
 <b>2.</b> Reconhecimento de amplas emoções (bravo, medo, confuso)<br>
-<b>3.</b>  Pegar varias emoções simultâneas e retornar com um análise sobre elas<br>
+<b>3.</b>  Pegar emoção durante interações ou ações específicas<br>
 
 
 Projeto para exemplo: https://github.com/deeplearningunb/emotion
