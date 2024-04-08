@@ -15,6 +15,7 @@ Python
 - Matplotlib
 - Mediapipe (opção para reconhecimento facial) https://developers.google.com/mediapipe/solutions/vision/face_detector
 - Dlib (machine learning normalmente usada para reconhecimento facil e detecção de pontos faciais)
+
 <b>Problema</b><br>
 Detecção de emoções para teste de usabilidade em novos produtos/neuromarketing <br>
   + Identificar emoções individuais e coletivas para parametros de negocios, relatorio de resultados e projeções de modelo	<br><br>
