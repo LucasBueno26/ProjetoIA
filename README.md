@@ -10,20 +10,27 @@ Mateus Inague Angelone Pereira RM: 85080<br>
 <b>Repositorio</b><br>
 https://github.com/LucasBueno26/ProjetoIA	
 
-<b>Python</b> 
-- OpenCV
-- Numpy
-- Matplotlib
-- Mediapipe (opção para reconhecimento facial) https://developers.google.com/mediapipe/solutions/vision/face_detector
-- Dlib (machine learning normalmente usada para reconhecimento facil e detecção de pontos faciais)
 
 <b>Problema</b><br>
 Detecção de emoções para teste de usabilidade em novos produtos/neuromarketing <br>
   + Identificar emoções individuais e coletivas para parametros de negocios, relatorio de resultados e projeções de modelo	<br><br>
+
+  <b>Python</b> 
+- OpenCV
+- Numpy
+- Matplotlib
+- *Mediapipe (opção para reconhecimento facial) https://developers.google.com/mediapipe/solutions/vision/face_detector
+- *Dlib (machine learning normalmente usada para reconhecimento facil e detecção de pontos faciais)
+  
 <b>Rubricas</b><br>
 <b>1.</b> Reconhecimento do rosto e macro emoções (feliz, triste)<br>
 <b>2.</b> Pegar emoção durante interações ou ações específicas x, y da tela. Testando a usabilidade do produto e capturando as emoções relacionadas as ações<br>
 <b>3.</b> Reconhecimento de amplas emoções (bravo, medo, confuso). <br>
+
+<b>Primeiros passos do projeto</b>
+- Detectar e recortar o rosto da pessoa em uma imagem ou vídeo
+- Aplicar métodos de detectar expressões
+- Feedback da expressão detectada
 
 Rubricas opcionais:
 
