@@ -9,7 +9,12 @@ Mateus Inague Angelone Pereira RM: 85080<br>
 
 <b>Repositorio</b><br>
 https://github.com/LucasBueno26/ProjetoIA	
-
+Python 
+- OpenCV
+- Numpy
+- Matplotlib
+- Mediapipe (opção para reconhecimento facial) https://developers.google.com/mediapipe/solutions/vision/face_detector
+- Dlib (machine learning usada para processamento de imagem e visão computacional, normalmente usada para reconhecimento facil e detecção de pontos faciais)
 <b>Problema</b><br>
 Detecção de emoções para teste de usabilidade em novos produtos/neuromarketing <br>
   + Identificar emoções individuais e coletivas para parametros de negocios, relatorio de resultados e projeções de modelo	<br><br>
