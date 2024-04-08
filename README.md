@@ -41,6 +41,7 @@ Isso pode incluir exibir a emoção detectada ou mesmo reproduzir emojis corresp
 Isso pode ser útil para análises mais detalhadas.
 
 Projeto para exemplo: 
+
 https://repositorio.ufes.br/items/f5fe68bf-1fd0-4cad-a2b8-77e219c90a27 (reconhecimento facil com deep learning)
 https://github.com/deeplearningunb/emotion (JavaScript)
 
