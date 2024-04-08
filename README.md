@@ -18,4 +18,12 @@ Detecção de emoções para teste de usabilidade em novos produtos/neuromarketi
 <b>2.</b> Pegar emoção durante interações ou ações específicas x, y da tela. Testando a usabilidade do produto e capturando as emoções relacionadas as ações<br>
 <b>3.</b> Reconhecimento de amplas emoções (bravo, medo, confuso). <br>
 
+Rubricas opcionais:
+
+- Feedback em Tempo Real: Forneça feedback em tempo real sobre as expressões faciais detectadas.
+Isso pode incluir exibir a emoção detectada ou mesmo reproduzir emojis correspondentes.
+
+- Gráficos e Estatísticas: Apresente gráficos e estatísticas sobre as expressões faciais detectadas ao longo do tempo.
+Isso pode ser útil para análises mais detalhadas.
+
 Projeto para exemplo: https://repositorio.ufes.br/items/f5fe68bf-1fd0-4cad-a2b8-77e219c90a27
