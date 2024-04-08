@@ -21,6 +21,7 @@ Detecção de emoções para teste de usabilidade em novos produtos/neuromarketi
 - Matplotlib
 - *Mediapipe (opção para reconhecimento facial) https://developers.google.com/mediapipe/solutions/vision/face_detector
 - *Dlib (machine learning normalmente usada para reconhecimento facil e detecção de pontos faciais)
+- faceDetector
   
 <b>Rubricas</b><br>
 <b>1.</b> Reconhecimento do rosto e macro emoções (feliz, triste)<br>
