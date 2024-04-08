@@ -9,6 +9,7 @@ Mateus Inague Angelone Pereira RM: 85080<br>
 
 <b>Repositorio</b><br>
 https://github.com/LucasBueno26/ProjetoIA	
+
 Python 
 - OpenCV
 - Numpy
