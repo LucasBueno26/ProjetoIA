@@ -50,4 +50,5 @@ Projeto para exemplo:
 
 https://repositorio.ufes.br/items/f5fe68bf-1fd0-4cad-a2b8-77e219c90a27 (reconhecimento facil com deep learning)
 https://github.com/deeplearningunb/emotion (JavaScript)
+https://github.com/REWTAO/Facial-emotion-recognition-using-mediapipe(landmark detection mediapipe)
 
