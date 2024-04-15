@@ -32,6 +32,11 @@ Detecção de emoções para teste de usabilidade em novos produtos/neuromarketi
 - Detectar e recortar o rosto da pessoa em uma imagem ou vídeo
 - Aplicar métodos de detectar expressões
 - Feedback da expressão detectada
+  
+<b>Continuação</b>
+- Adicionar mais expressôes no filtro
+- Ajustar a proporção/escala
+- Printar o resultado sem a mascara do mediapipe
 
 Rubricas opcionais:
 
