@@ -34,7 +34,7 @@ Detecção de emoções para teste de usabilidade em novos produtos/neuromarketi
 - Feedback da expressão detectada
   
 <b>Continuação</b>
-- Adicionar mais expressôes no filtro
+- Adicionar mais expressões no filtro
 - Ajustar a proporção/escala
 - Printar o resultado sem a mascara do mediapipe
 
