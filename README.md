@@ -25,7 +25,7 @@ Detecção de emoções para teste de usabilidade em novos produtos/neuromarketi
   
 <b>Rubricas</b><br>
 <b>1.</b> Reconhecimento do rosto e macro emoções (feliz, triste)<br>
-<b>2.</b> Reconhecimento de amplas emoções (bravo, medo, confuso). <br>
+<b>2.</b> Reconhecimento de amplas emoções (bravo, medo, confuso, surpreso, neutro, etc). <br>
 <b>3.</b> Pegar emoção durante interações ou ações específicas x, y da tela. Testando a usabilidade do produto e capturando as emoções relacionadas as ações<br>
 
 <b>Primeiros passos do projeto</b>
