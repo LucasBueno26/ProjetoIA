@@ -1,109 +1,147 @@
-import mediapipe as mp
 import cv2
 import numpy as np
+import os
+import threading
+import tkinter as tk
+from keras.models import model_from_json
+from tkinter import ttk
+from reportlab.lib.pagesizes import letter
+from datetime import datetime
+from reportlab.pdfgen import canvas
+from io import BytesIO
+from PIL import Image
+from reportlab.lib.utils import ImageReader
 
-# Configurações de desenho
-mp_drawing = mp.solutions.drawing_utils
-mp_face_mesh = mp.solutions.face_mesh
-left_eye_points = list(range(23, 30))
-right_eye_points = list(range(252, 260))
+'''
+Fer2013 Dataset
+'''
 
-# Crie uma instância do objeto FaceMesh
-face_mesh = mp_face_mesh.FaceMesh(
-    static_image_mode=False,
-    max_num_faces=1,
-    refine_landmarks=True,
-    min_detection_confidence=0.5,
-    min_tracking_confidence=0.5)
+#Emoções definidas e treinadas pelo modelo
+emotion_dict = {0: "Bravo", 1: "Nojo", 2: "Medo", 3: "Feliz", 4: "Neutro", 5: "Triste", 6: "Surpreso"}
 
-# Inicialize a captura de vídeo da webcam
+#Carregando o modelo e compilando para uso
+json_file = open('CNN/emotion_model.json', 'r')
+loaded_model_json = json_file.read()
+json_file.close()
+emotion_model = model_from_json(loaded_model_json)
+emotion_model.load_weights("CNN/emotion_model.h5")
+
+print("Modelo carregado e compilado.")
+
+#Iniciando a webcam
 cap = cv2.VideoCapture(0)
 
-while cap.isOpened():
-    # Capture frame-by-frame
-    ret, frame = cap.read()
-    if not ret:
-        print("Erro ao capturar o frame.")
-        break
+# Variáveis para armazenar a emoção detectada e a imagem atual
+current_emotion = "Nenhuma"
+current_frame = None
+click_records = [] 
 
-    # Processamento de imagem
-    image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    results = face_mesh.process(image_rgb)
+def detectar_emocao():
+    global current_emotion, current_frame
 
-    # Verifique se alguma face foi encontrada
-    if results.multi_face_landmarks:
-        # Marcar landmarks na imagem
-        for face_landmarks in results.multi_face_landmarks:
-            # Converter landmarks para um formato numpy
-            landmarks = np.array([[lm.x, lm.y] for lm in face_landmarks.landmark])
+    while True:
+        ret, frame = cap.read()
+        frame = cv2.flip(frame, 1)
+        frame = cv2.resize(frame, (1280, 720))
+        if not ret:
+            break
 
-            # Extrair pontos dos lábios
-            upper_lip = np.mean(landmarks[61:65], axis=0)
-            lower_lip = np.mean(landmarks[65:68], axis=0)
-            
-            #Extrair olho esquerdo
-            lower_lip2 = np.mean(landmarks[23:27], axis=0)
-            upper_lip2 = np.mean(landmarks[28:29], axis=0)
+        #Arquivo treinado de detecção de face
+        face_detector = cv2.CascadeClassifier('CNN/haarcascade_frontalface_default.xml')
+        gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        num_faces = face_detector.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
 
-            #Extrair olho direito
-            lower_lip3 = np.mean(landmarks[257:259], axis=0)
-            upper_lip3 = np.mean(landmarks[252:256], axis=0)
+        for (x, y, w, h) in num_faces                       :
+            cv2.rectangle(frame, (x, y-30), (x+w, y+h+20), (0, 255, 0), 4)
+            roi_gray_frame = gray_frame[y:y + h, x:x + w]
+            cropped_img = np.expand_dims(np.expand_dims(cv2.resize(roi_gray_frame, (48, 48)), -1), 0)
+            emotion_prediction = emotion_model.predict(cropped_img)
+            maxindex = int(np.argmax(emotion_prediction))
+            current_emotion = emotion_dict[maxindex]  
+            cv2.putText(frame, current_emotion, (x+5, y-10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,205), 2, cv2.LINE_AA)
 
-            # Calcular a distância entre os lábios
-            lip_distance = lower_lip[1] - upper_lip[1]
-            
-            #direito
-            lip_distance2 = lower_lip2[1] - upper_lip2[1]
-            #esq
-            lip_distance3 = lower_lip3[1] - upper_lip3[1]
+        current_frame = frame.copy()
 
-            # Se a distância normalizada for maior que o limiar, consideramos que a pessoa está sorrindo
-            cv2.putText(frame, f"direito {lip_distance2}", (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            cv2.putText(frame, f"esquerdo {lip_distance3}", (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        cv2.imshow('Frame', frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
-            if lip_distance > -0.15 and lip_distance2 < 0.038 and lip_distance3 > -0.038:
-                cv2.putText(frame, "Sorrindo", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            else:
-                cv2.putText(frame, "Neutro", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+def clique_botao(button_number):
+    global current_emotion, current_frame
+    print(f"Botão {button_number} foi clicado! Emoção atual: {current_emotion}")
+    if current_frame is not None:
+        # Armazena a imagem como um objeto PIL Image
+        pil_image = Image.fromarray(cv2.cvtColor(current_frame, cv2.COLOR_BGR2RGB))
+        click_records.append((f"Botão {button_number} foi clicado. Emoção detectada: {current_emotion}", pil_image))
 
-            # Desenhar um quadrado fixo para encaixar o rosto
-            # Coordenadas do quadrado
-            x1, y1 = int(frame.shape[1] * 0.42), int(frame.shape[0] * 0.25)
-            x2, y2 = int(frame.shape[1] * 0.68), int(frame.shape[0] * 0.75)
-            # Desenhar o quadrado
-           # Desenhar uma forma oval
-            cv2.putText(frame, "Encaixe o rosto no circulo", (x1, y1-20), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 255), 1)
-            cv2.ellipse(frame, ((x1 + x2) // 2, (y1 + y2) // 2), ((x2 - x1) // 2, (y2 - y1) // 2), 0, 0, 360, (155,51, 153), 2)
+def gui():
+    root = tk.Tk()
+    root.title("Novo Produto Marketing") #Simulando um novo produto para ser testado
+    root.geometry("400x400")
 
-            # Desenhar landmarks na imagem
-            mp_drawing.draw_landmarks(image=frame,
-                                       landmark_list=face_landmarks,
-                                       connections=mp_face_mesh.FACEMESH_TESSELATION,
-                                       landmark_drawing_spec=mp_drawing.DrawingSpec(color=(255, 0, 0),
-                                                                                     thickness=1,
-                                                                                     circle_radius=1),
-                                       connection_drawing_spec=mp_drawing.DrawingSpec(color=(0, 255, 0),
-                                                                                        thickness=1,
-                                                                                        circle_radius=1))
-      
-            # Iterar sobre os pontos e desenhar os números apenas para os pontos dos olhos
-            for idx, landmark in enumerate(face_landmarks.landmark):
-                height, width, _ = frame.shape
-                x, y = int(landmark.x * width), int(landmark.y * height)
+    style = ttk.Style()
+    style.configure("TButton", font=("Arial", 12), padding=10)
+    
+    main_frame = ttk.Frame(root, padding="10 10 10 10")
+    main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+    
+    label = ttk.Label(main_frame, text="Clique nos botões", font=("Arial", 16))
+    label.grid(row=0, column=0, columnspan=2, pady=10)
+    
+    buttons = [
+        ("Botão 1", 1),
+        ("Botão 2", 2),
+        ("Botão 3", 3),
+        ("Botão 4", 4),
+        ("Botão 5", 5),
+        ("Botão 6", 6),
+    ]
+    
+    for idx, (text, value) in enumerate(buttons):
+        button = ttk.Button(main_frame, text=text, command=lambda num=value: clique_botao(num))
+        button.grid(row=(idx // 2) + 1, column=idx % 2, padx=10, pady=10, sticky=(tk.W, tk.E))
 
-                # Desenhar o número apenas se for um ponto do olho
-                if idx in left_eye_points or idx in right_eye_points:
-                    cv2.putText(frame, str(idx), (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 255), 1)
+    for child in main_frame.winfo_children():
+        child.grid_configure(padx=10, pady=10)
+    
+    root.mainloop()
+
+def salvar_pdf(filename="resultados.pdf"):
+    if os.path.exists(filename):
+        os.remove(filename)
+
+    c = canvas.Canvas(filename, pagesize=letter)
+    width, height = letter
+    c.drawString(100, height - 50, "Relatórios das interações e a emoções")
+    y = height - 80
+
+    for record, pil_image in click_records:
+        # Converter a imagem PIL para um objeto compatível com ReportLab
+        img_buffer = BytesIO()
+        pil_image.save(img_buffer, format='PNG')
+        img_buffer.seek(0)
+        img = ImageReader(img_buffer)
+
+        # Verificar se há espaço suficiente para a imagem na página atual
+        if y - 200 < 100:  # Verifica se há espaço para a imagem na página seguinte
+            c.showPage()
+            c.drawString(100, height - 50, "Relatórios das interações e a emoções")
+            y = height - 80
+
+        c.drawImage(img, 100, y - 180, width=250, height=150)
+        c.drawString(100, y, record)
+        c.drawString(100, y - 15, f"Horário {datetime.now().strftime('%H:%M:%S')}, Imagem:")
+        y -= 200
+
+    c.save()
+    os.system(f'start {filename}')
 
 
-    # Mostra o frame resultante
-    # Mostra o frame resultante
-    cv2.imshow('Face Mesh', frame)
+emotions_thread = threading.Thread(target=detectar_emocao)
+emotions_thread.start()
 
-    # Sair do loop quando pressionar 'q'
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-# Libera os recursos
+# Chamando os metódos
+gui()
 cap.release()
 cv2.destroyAllWindows()
+salvar_pdf()
