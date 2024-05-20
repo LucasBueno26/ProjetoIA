@@ -43,8 +43,6 @@ Rubricas opcionais:
 - Feedback em Tempo Real: Forneça feedback em tempo real sobre as expressões faciais detectadas.
 Isso pode incluir exibir a emoção detectada ou mesmo reproduzir emojis correspondentes.
 
-- Gráficos e Estatísticas: Apresente gráficos e estatísticas sobre as expressões faciais detectadas ao longo do tempo.
-Isso pode ser útil para análises mais detalhadas.
 
 Projeto para exemplo: 
 
