@@ -18,10 +18,16 @@ Detecção de emoções para teste de usabilidade em novos produtos/neuromarketi
   <b>Python</b> 
 - OpenCV
 - Numpy
-- Matplotlib
+- Tensorflow
+- Pillow
+- Reportlab
+
+
+Opções de outros modelos pré treinados:
 - *Mediapipe (opção para reconhecimento facial) https://developers.google.com/mediapipe/solutions/vision/face_detector
 - *Dlib (machine learning normalmente usada para reconhecimento facil e detecção de pontos faciais)
 - faceDetector
+- DeepFace
   
 <b>Rubricas</b><br>
 <b>1.</b> Reconhecimento do rosto e macro emoções (feliz, triste)<br>
@@ -36,7 +42,7 @@ Detecção de emoções para teste de usabilidade em novos produtos/neuromarketi
 <b>Continuação</b>
 - Adicionar mais expressões no filtro
 - Ajustar a proporção/escala
-- Printar o resultado sem a mascara do mediapipe
+- Printar o resultado sem a mascara
 
 Rubricas opcionais:
 
